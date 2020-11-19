@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Team</string>
+    <string name="ID">ID</string>
+    <string name="PassWord">PW</string>
+    <string name="signup">Sign-UP</string>
+    <string name="signin">Sign-in</string>
 </resources>

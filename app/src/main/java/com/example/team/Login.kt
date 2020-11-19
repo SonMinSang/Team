@@ -6,13 +6,13 @@ import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_login)
 
-        testButton.setOnClickListener(){
-            val intent = Intent(this, Login::class.java)
+        bt_signup.setOnClickListener(){
+            val intent = Intent(this, SignUp::class.java)
             //intent.putExtra("WMI",ed_ID.text.toString())
             startActivity(intent)
         }

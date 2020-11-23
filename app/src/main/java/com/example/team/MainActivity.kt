@@ -3,7 +3,6 @@ package com.example.team
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -11,8 +10,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        testButton.setOnClickListener(){
-            val intent = Intent(this, Login::class.java)
+        val intent = Intent(this, Loading::class.java)
+        startActivity(intent)
+
+        bt_signup.setOnClickListener(){
+            val intent = Intent(this, SignUp::class.java)
+            //intent.putExtra("WMI",ed_ID.text.toString())
+            startActivity(intent)
+        }
+        bt_signin.setOnClickListener(){
+            val intent = Intent(this, Home_test::class.java)
             //intent.putExtra("WMI",ed_ID.text.toString())
             startActivity(intent)
         }

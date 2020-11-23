@@ -4,23 +4,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_margin="10dp">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="바보민상"
+        android:id="@+id/Title"
+        android:layout_width="316dp"
+        android:layout_height="97dp"
+        android:fontFamily="@font/basement"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/app_name"
+        android:textColor="@color/Main"
+        android:textSize="70sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.242" />
+
+    <EditText
+        android:id="@+id/ed_ID"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="348dp"
+        android:ems="10"
+        android:hint="@string/ID"
+        android:inputType="textPersonName"
+        android:textCursorDrawable="@color/Main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/testButton"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/ed_PW"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="시작하기"
-        tools:layout_editor_absoluteX="171dp"
-        tools:layout_editor_absoluteY="479dp" />
+        android:ems="10"
+        android:hint="@string/PassWord"
+        android:inputType="textPersonName"
+        android:singleLine="false"
+        android:textCursorDrawable="@color/Main"
+        app:layout_constraintBottom_toTopOf="@+id/bt_signin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ed_ID"
+        app:layout_constraintVertical_bias="0.13" />
 
+    <Button
+        android:id="@+id/bt_signup"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="192dp"
+        android:fontFamily="@font/basement"
+        android:text="@string/signup"
+        app:backgroundTint="@color/Main"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bt_signin" />
+
+    <Button
+        android:id="@+id/bt_signin"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="192dp"
+        android:fontFamily="@font/basement"
+        android:text="@string/signin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bt_signup"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:backgroundTint="@color/Main" />
 </androidx.constraintlayout.widget.ConstraintLayout>

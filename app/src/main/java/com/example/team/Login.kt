@@ -11,10 +11,6 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        bt_signup.setOnClickListener(){
-            val intent = Intent(this, SignUp::class.java)
-            //intent.putExtra("WMI",ed_ID.text.toString())
-            startActivity(intent)
-        }
+
     }
 }

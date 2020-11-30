@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         bt_signin.setOnClickListener(){
-            val intent = Intent(this, Home_test::class.java)
+            val intent = Intent(this, Home::class.java)
             //intent.putExtra("WMI",ed_ID.text.toString())
             startActivity(intent)
         }

@@ -11,7 +11,7 @@ class SignUp : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
 
         bt_start.setOnClickListener(){
-            val intent = Intent(this, Home_test::class.java)
+            val intent = Intent(this, Home::class.java)
             startActivity(intent)
         }
 

@@ -72,4 +72,5 @@
         app:layout_constraintEnd_toStartOf="@+id/bt_signup"
         app:layout_constraintStart_toStartOf="parent"
         tools:backgroundTint="@color/Main" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

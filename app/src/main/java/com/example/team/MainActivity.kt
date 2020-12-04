@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.view.MenuItem
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 return true
             }
             R.id.navi_user -> {
-                var userFrament = UserFragment()
+                var userFrament = ProfileFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, userFrament).commit()
                 return true

@@ -6,8 +6,12 @@ data class ContentDTO(var explain: String? = null,
                       var userId: String? = null,
                       var timestamp: Long? = null,
                       var title: String? =null,
+                      var type: String?=null,
                       var category: CharCategory? =null,
-                      var location: String? =null
+                      var location: String? =null,
+                      var latitude: String? =null,
+                      var longtitude: String? =null
+
 )
 
 //                      var favoriteCount: Int = 0,

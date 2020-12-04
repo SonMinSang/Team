@@ -64,14 +64,14 @@
         android:backgroundTint="@color/Main"
         android:textCursorDrawable="@color/Main"
         android:hint="제목"/>
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/addphoto_cate"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:hint="카테고리"
-            android:entries="@array/catagory"
-            android:spinnerMode="dialog"
-            />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/addphoto_cate"
+        android:layout_width="370dp"
+        android:layout_height="40dp"
+        android:entries="@array/catagory"
+        android:hint="카테고리"
+        android:spinnerMode="dialog" />
         <EditText
             android:id="@+id/addphoto_location"
             android:layout_width="match_parent"

@@ -4,12 +4,16 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.team.Fragment.model.ContentDTO
 import com.example.team.R
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.activity_add.*
@@ -22,18 +26,18 @@ class AddPhotoActivity : AppCompatActivity() {
     var photoUri: Uri? = null
     var auth : FirebaseAuth? =null
     var firestore : FirebaseFirestore? =null
+    val db : FirebaseDatabase= FirebaseDatabase.getInstance();
+    val myRef:DatabaseReference= db.getReference()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
 
         val items = resources.getStringArray(R.array.catagory)
-
         // Initiate storage
         storage = FirebaseStorage.getInstance()
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
-
         // Open the album
         var photoPickerIntent = Intent(Intent.ACTION_PICK)
         photoPickerIntent.type = "image/*"
@@ -66,20 +70,15 @@ class AddPhotoActivity : AppCompatActivity() {
         var storageRef = storage?.reference?.child("images")?.child(imageFileName)
 
         // File upload
-        storageRef?.putFile(photoUri!!)?.continueWithTask { task: com.google.android.gms.tasks.Task<UploadTask.TaskSnapshot> ->
-            return@continueWithTask storageRef.downloadUrl
-        }?.addOnSuccessListener { uri ->
+        storageRef?.putFile(photoUri!!)?.addOnSuccessListener { uri ->
             var contentDTO = ContentDTO()
 
-            // Insert downloadUrl of image
-            contentDTO.imageUrl = uri.toString()
 
             // Insert uid of user
             contentDTO.uid = auth?.currentUser?.uid
 
             // Insert userId
             contentDTO.userId = auth?.currentUser?.email
-
             // Insert explain of content
             contentDTO.explain = addphoto_edit_explain.text.toString()
 
@@ -92,7 +91,10 @@ class AddPhotoActivity : AppCompatActivity() {
             // Insert location
             contentDTO.location = addphoto_location.text.toString()
 
-            firestore?.collection("images")?.document()?.set(contentDTO)
+            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child("timestamp").setValue(timestamp.toString())
+            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child("userId").setValue(contentDTO.userId.toString())
+            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child("explain").setValue(contentDTO.explain)
+            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child("title").setValue(contentDTO.title)
 
             setResult(Activity.RESULT_OK)
 
@@ -101,3 +103,5 @@ class AddPhotoActivity : AppCompatActivity() {
 
     }
 }
+
+

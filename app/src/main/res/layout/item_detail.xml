@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <!-- Content ImageView -->
+    <ImageView
+        android:id="@+id/detail_item_image"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/testimage" />
+    <!-- Title Layout -->
+    <LinearLayout
+        android:id="@+id/userInfo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/detailviewitem_profile_image"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_margin="7.5dp"
+            tools:src="@mipmap/ic_launcher" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <TextView
+            android:id="@+id/detail_item_userid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="User Name"
+            android:textSize="20dp"/>
+        <TextView
+            android:id="@+id/detail_item_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="위치"
+            android:textSize="15dp"
+            />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/toolbar_division"
+        android:background="@color/colorDivision"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/userInfo"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <!-- favorite & comment -->
+
+    <!--android:id="@+id/detailviewitem_favoritecounter_textview"-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+d        <TextView
+            android:id="@+id/detail_item_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/detail_item_image"
+            android:layout_alignParentTop="true"
+            android:textSize="20sp"
+            android:text="카테고리"/>
+
+        <TextView
+            android:id="@+id/detail_item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="제목"
+            android:textSize="30dp"
+            android:textStyle="bold"/>
+</LinearLayout>
+
+    <TextView
+        android:id="@+id/detail_item_text"
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:text="내용" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight ="1"
+        >
+
+        <Button
+            android:id="@+id/detail_chatbutton"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/Main"
+            android:text="채팅하기"
+            />
+    </LinearLayout>
+</LinearLayout>

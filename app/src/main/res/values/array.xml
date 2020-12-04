@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="content_type">
+        <item>분실물</item>
+        <item>무료나눔</item>
+        <item>함께주문</item>
+        <item>기타</item>
+    </string-array>
+</resources>

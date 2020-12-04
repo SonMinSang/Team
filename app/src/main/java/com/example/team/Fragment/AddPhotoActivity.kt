@@ -81,7 +81,7 @@ class AddPhotoActivity : AppCompatActivity() {
             contentDTO.userId = auth?.currentUser?.email
             // Insert explain of content
             contentDTO.explain = addphoto_edit_explain.text.toString()
-
+            contentDTO.type=addphoto_cate.selectedItem.toString()
             // Insert timestamp
             contentDTO.timestamp = System.currentTimeMillis()
 
@@ -91,10 +91,10 @@ class AddPhotoActivity : AppCompatActivity() {
             // Insert location
             contentDTO.location = addphoto_location.text.toString()
 
-            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child("timestamp").setValue(timestamp.toString())
-            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child("userId").setValue(contentDTO.userId.toString())
-            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child("explain").setValue(contentDTO.explain)
-            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child("title").setValue(contentDTO.title)
+            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child("timestamp").child(timestamp.toString()).child("type").setValue(contentDTO.type)
+            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child("timestamp").child(timestamp.toString()).child("userId").setValue(contentDTO.userId.toString())
+            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child("timestamp").child(timestamp.toString()).child("explain").setValue(contentDTO.explain)
+            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child("timestamp").child(timestamp.toString()).child("title").setValue(contentDTO.title)
 
             setResult(Activity.RESULT_OK)
 

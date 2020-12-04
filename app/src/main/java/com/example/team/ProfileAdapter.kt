@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.team.Fragment.model.ContentDTO
 import kotlinx.android.synthetic.main.profil.view.*
-class ProfileAdapter(val context: Context, val postList : ArrayList<User>):RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>() {
+class ProfileAdapter(val context: Context, val postList : ArrayList<ContentDTO>):RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -33,19 +34,21 @@ class ProfileAdapter(val context: Context, val postList : ArrayList<User>):Recyc
     class ProfileViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
         val postImage=itemView?.product
         val postTitle=itemView?.post_title
+        val postType=itemView?.post_type
         val postTime=itemView?.post_time
         val postContent=itemView?.post_content
-        fun bind(User:User,context:Context){
-            if (User.postImage != "") {
-                val resourceId = context.resources.getIdentifier(User.postImage, "drawable", context.packageName)
+        fun bind(ContentDTO:ContentDTO,context:Context){
+            if (ContentDTO.imageUrl != "") {
+                val resourceId = context.resources.getIdentifier(ContentDTO.imageUrl, "drawable", context.packageName)
                 postImage?.setImageResource(resourceId)
             } else {
                 postImage?.setImageResource(R.mipmap.ic_launcher)
             }
 
-            postTitle?.text=User.postTitle
-            postTime?.text=User.postTime
-            postContent?.text=User.postContent
+            postTitle?.text=ContentDTO.title
+            postType?.text=ContentDTO.type
+            postTime?.text=ContentDTO.timestamp.toString()
+            postContent?.text=ContentDTO.explain
         }
 
     }

@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
         when (p0.itemId) {
             R.id.navi_home -> {
-                var detailViewFragment = DetailViewFragment()
+                var detailViewFragment = TestFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, detailViewFragment).commit()
                 return true
@@ -55,5 +55,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         bottom_navigation.setOnNavigationItemSelectedListener(this)
 
         ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),1)
+
     }
 }

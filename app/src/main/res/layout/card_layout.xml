@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/card_view"
         android:layout_margin="5dp"
-        card_view:cardBackgroundColor="#81C784"
         card_view:cardCornerRadius="12dp"
         card_view:cardElevation="3dp"
         card_view:contentPadding="4dp"
@@ -22,33 +21,53 @@
             android:padding="16dp">
 
             <ImageView
+                android:id="@+id/card_item_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:id="@+id/item_image"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
+                android:background="@drawable/ic_launcher_background"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp" />
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_toRightOf="@id/card_item_image">
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/card_item_cate"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/item_title"
-                android:layout_toEndOf="@+id/item_image"
-                android:layout_toRightOf="@id/item_image"
+                android:text="카테고리"
+                android:gravity="right"
+                android:layout_toEndOf="@+id/card_item_image"
+                android:layout_toRightOf="@id/card_item_image"
                 android:layout_alignParentTop="true"
-                android:textSize="30sp" />
+                android:textSize="18dp" />
 
             <TextView
+                android:id="@+id/card_item_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/item_detail"
+                android:text="제목"
+                android:textStyle="bold"
+                android:textSize="30dp"
                 android:layout_toEndOf="@+id/item_image"
                 android:layout_toRightOf="@+id/item_image"
-                android:layout_below="@+id/item_title">
-            </TextView>
+                android:layout_below="@+id/item_title"/>
+    <TextView
+        android:id="@+id/card_item_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="위치"
+        android:textSize="15dp"
+        android:layout_toEndOf="@+id/item_image"
+        android:layout_toRightOf="@+id/item_image"
+        android:layout_below="@+id/item_title"/>
+</LinearLayout>
+
 
         </RelativeLayout>
 

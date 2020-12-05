@@ -5,22 +5,27 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.util.Log
 import android.view.MenuItem
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.team.Fragment.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+    var auth: FirebaseAuth? = null
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
         when (p0.itemId) {
             R.id.navi_home -> {
-                var detailViewFragment = DetailViewFragment()
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, detailViewFragment).commit()
-                return true
-            }
+            var detailViewFragment = DetailViewFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, detailViewFragment).commit()
+            return true
+        }
+
             R.id.navi_map -> {
                 var mapFragment = MapFragment()
                 supportFragmentManager.beginTransaction()
@@ -49,11 +54,12 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         }
         return false
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        bottom_navigation.setOnNavigationItemSelectedListener(this)
 
+        bottom_navigation.setOnNavigationItemSelectedListener(this)
         ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),1)
     }
 }

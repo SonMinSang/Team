@@ -38,8 +38,9 @@ class MapFragment : Fragment(),  OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        val marker = LatLng(35.241615, 128.695587)
+        val marker = LatLng(37.37468977, 127.04470060)
         mMap.addMarker(MarkerOptions().position(marker).title("Marker LAB"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(marker))
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(12f))
     }
 }

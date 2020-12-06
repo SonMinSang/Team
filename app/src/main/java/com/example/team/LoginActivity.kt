@@ -167,10 +167,8 @@ class LoginActivity : AppCompatActivity() {
                             )
 
 
-
-
+                            profile.profile_name=i.child("userId").value.toString()
                         }
-
 
                     }
 

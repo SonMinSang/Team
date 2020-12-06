@@ -42,10 +42,9 @@ class MapFragment : Fragment(),  OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        val geocoder = Geocoder(context)
+
         mMap = googleMap
         val marker = LatLng(37.37468977, 127.04470060)
-        Log.d("1",geocoder.getFromLocation(37.37468977, 127.04470060,10).toString())
 
         mMap.addMarker(MarkerOptions().position(marker).title("Marker LAB"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(marker))

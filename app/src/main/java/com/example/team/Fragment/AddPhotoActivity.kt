@@ -4,22 +4,27 @@ package com.example.team.Fragment
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Bitmap.createScaledBitmap
 import android.graphics.BitmapFactory
+
+import android.graphics.Rect
+import android.location.Address
+import android.location.Geocoder
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.team.Fragment.model.ContentDTO
 import com.example.team.R
-import com.example.team.data.detail
-import com.example.team.data.profile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_add.*
 import java.io.ByteArrayOutputStream
+import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -33,6 +38,7 @@ class AddPhotoActivity : AppCompatActivity() {
     val db : FirebaseDatabase= FirebaseDatabase.getInstance();
     val myRef:DatabaseReference= db.getReference()
     var bitmap_string:String? =null
+    var addressList:List<Address>?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
@@ -52,8 +58,10 @@ class AddPhotoActivity : AppCompatActivity() {
 
             contentUpload()
             val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, photoUri)
-            bitmap_string=BitmapToString(bitmap)
-        }
+
+
+
+            }
     }
 
 
@@ -74,10 +82,14 @@ class AddPhotoActivity : AppCompatActivity() {
     }
 
     fun BitmapToString(bitmap: Bitmap): String? {
+        try{
         val baos = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.PNG, 70, baos)
         val bytes: ByteArray = baos.toByteArray()
         return Base64.encodeToString(bytes, Base64.DEFAULT)
+          }catch (e:Exception){
+              return null
+          }
     }
 
     fun contentUpload(){
@@ -90,7 +102,10 @@ class AddPhotoActivity : AppCompatActivity() {
         // File upload
         storageRef?.putFile(photoUri!!)?.addOnSuccessListener { uri ->
             var contentDTO = ContentDTO()
+            val geocoder = Geocoder(this)
 
+
+            contentDTO.location=addphoto_location.text.toString()
             // Insert uid of user
             contentDTO.uid = auth?.currentUser?.uid
             contentDTO.imageUrl=bitmap_string
@@ -103,11 +118,26 @@ class AddPhotoActivity : AppCompatActivity() {
             contentDTO.timestamp = System.currentTimeMillis().toString()
             // Insert title
             contentDTO.title = addphoto_title.text.toString()
+            addressList = geocoder.getFromLocationName(
+                contentDTO.location, // 주소
+                1
+            )
+            try{
+                contentDTO.latitude= (addressList as MutableList<Address>?)!!.get(0)!!.getLatitude().toString()
 
-            // Insert location
-            contentDTO.location = addphoto_location.text.toString()
+            contentDTO.longitude= (addressList as MutableList<Address>?)!!.get(0)!!.getLongitude().toString()
+            }
+            catch(e:Exception){
+                contentDTO.latitude=null
+                contentDTO.longitude=null
+            }
+
+                Log.d("hi", contentDTO.latitude!!)
+            Log.d(addressList .toString(),addressList.toString())
+
             myRef.child("uid").child(auth?.currentUser?.uid.toString()).child(timestamp.toString()).child(
-                "imageUrl").setValue(contentDTO.imageUrl)
+                "imageUrl"
+            ).setValue(contentDTO.imageUrl)
             myRef.child("uid").child(auth?.currentUser?.uid.toString()).child(timestamp.toString()).child(
                 "type"
             ).setValue(contentDTO.type)
@@ -120,8 +150,12 @@ class AddPhotoActivity : AppCompatActivity() {
             myRef.child("uid").child(auth?.currentUser?.uid.toString()).child(timestamp.toString()).child(
                 "title"
             ).setValue(contentDTO.title)
-
-
+            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child(timestamp.toString()).child(
+                "latitude"
+            ).setValue(contentDTO.latitude)
+            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child(timestamp.toString()).child(
+                "longitude"
+            ).setValue(contentDTO.longitude)
 
                 }
 
@@ -131,8 +165,6 @@ class AddPhotoActivity : AppCompatActivity() {
         }
 
     }
-
-
 
 
 

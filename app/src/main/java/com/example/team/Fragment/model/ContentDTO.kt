@@ -10,7 +10,7 @@ data class ContentDTO(var explain: String? = null,
                       var category: CharCategory? =null,
                       var location: String? =null,
                       var latitude: String? =null,
-                      var longtitude: String? =null
+                      var longitude: String? =null
 
 )
 

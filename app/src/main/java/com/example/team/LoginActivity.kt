@@ -137,7 +137,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun upload_list() {
-
         val db: FirebaseDatabase = FirebaseDatabase.getInstance()
         val myRef: DatabaseReference = db.getReference("uid")
         detail.detail_list.clear()
@@ -154,7 +153,9 @@ class LoginActivity : AppCompatActivity() {
                                 i.child("type").value.toString(),
                                 i.child("explain").value.toString(),
                                 i.key.toString(),
-                                i.child("imageUrl").value.toString()
+                                i.child("imageUrl").value.toString(),
+                                i.child("latitude").value.toString(),
+                                i.child("longitude").value.toString()
                             )
                         )
 
@@ -172,11 +173,12 @@ class LoginActivity : AppCompatActivity() {
                                     i.key.toString(),
                                     i.child("imageUrl").value.toString()
                                 )
+
                             )
 
-
-
                             profile.profile_name=i.child("userId").value.toString()
+
+
                         }
 
                     }

@@ -5,8 +5,10 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.location.Geocoder
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,12 +35,18 @@ class MapFragment : Fragment(),  OnMapReadyCallback {
 
         mapFragment.getMapAsync(this)
 
+
+
+
         return rootView
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
+        val geocoder = Geocoder(context)
         mMap = googleMap
         val marker = LatLng(37.37468977, 127.04470060)
+        Log.d("1",geocoder.getFromLocation(37.37468977, 127.04470060,10).toString())
+
         mMap.addMarker(MarkerOptions().position(marker).title("Marker LAB"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(marker))
         mMap.animateCamera(CameraUpdateFactory.zoomTo(12f))

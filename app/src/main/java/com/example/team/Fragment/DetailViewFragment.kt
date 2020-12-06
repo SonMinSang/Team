@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_detail.view.*
 import kotlinx.android.synthetic.main.item_detail.view.*
 
 class DetailViewFragment :Fragment(){
-    var firestore: FirebaseFirestore? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,7 +23,7 @@ class DetailViewFragment :Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         var view = LayoutInflater.from(activity).inflate(R.layout.fragment_detail,container,false)
-        firestore = FirebaseFirestore.getInstance()
+
 
         view.detailviewfragment_recyclerview.adapter = DetailViewRecyclerViewAdapter()
         view.detailviewfragment_recyclerview.layoutManager = LinearLayoutManager(activity)
@@ -35,17 +35,13 @@ class DetailViewFragment :Fragment(){
 
         init {
 
-            firestore?.collection("images")?.orderBy("timestamp")?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+
                 contentDTOs.clear()
                 contentUidList.clear()
-                for(snapshot in querySnapshot!!.documents){
-                    var item = snapshot.toObject(ContentDTO::class.java)
-                    contentDTOs.add(item!!)
-                    contentUidList.add(snapshot.id)
-                }
+
                 notifyDataSetChanged()
             }
-        }
+
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             var view = LayoutInflater.from(parent.context).inflate(R.layout.item_detail, parent,false)
@@ -63,9 +59,6 @@ class DetailViewFragment :Fragment(){
 
             // User Id
             viewholder.detailviewitem_profile_uid.text = contentDTOs!![position].userId
-
-            // Image
-            Glide.with(holder.itemView.context).load(contentDTOs!![position].imageUrl).into(viewholder.detailviewitem_imageview_content)
 
             // Explain
             viewholder.detailviewitem_explain.text = contentDTOs!![position].explain

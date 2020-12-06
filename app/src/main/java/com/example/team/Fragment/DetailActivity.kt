@@ -1,12 +1,9 @@
 package com.example.team.Fragment
 
-import android.app.Activity
-import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.team.Adapter.HomeAdapter
 import com.example.team.R
@@ -16,22 +13,15 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_home.*
 
-
-class HomeFragment : Fragment() {
+class DetailActivity : AppCompatActivity() {
     val db: FirebaseDatabase = FirebaseDatabase.getInstance()
-    val myRef: DatabaseReference = db.getReference("uid")
+    val myRef: DatabaseReference = db.getReference("timestamp")
     var auth: FirebaseAuth? = null
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    val postId = intent.getIntExtra("postId",-1)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_detail)
     }
 
 
-
-
 }
-

@@ -1,28 +1,22 @@
 package com.example.team.Fragment
 
-
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Base64
 import androidx.appcompat.app.AppCompatActivity
 import com.example.team.Fragment.model.ContentDTO
 import com.example.team.R
-import com.example.team.data.detail
+import com.example.team.data.Card
+import com.example.team.data.User
 import com.example.team.data.profile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_add.*
-import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 class AddPhotoActivity : AppCompatActivity() {
     var PICK_IMAGE_FROM_ALBUM = 0 // request code
@@ -32,7 +26,7 @@ class AddPhotoActivity : AppCompatActivity() {
     var firestore : FirebaseFirestore? =null
     val db : FirebaseDatabase= FirebaseDatabase.getInstance();
     val myRef:DatabaseReference= db.getReference()
-    var bitmap_string:String? =null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
@@ -45,17 +39,13 @@ class AddPhotoActivity : AppCompatActivity() {
         // Open the album
         var photoPickerIntent = Intent(Intent.ACTION_PICK)
         photoPickerIntent.type = "image/*"
-        startActivityForResult(photoPickerIntent, PICK_IMAGE_FROM_ALBUM)
+        startActivityForResult(photoPickerIntent,PICK_IMAGE_FROM_ALBUM)
 
         // add image upload event
         addphoto_btn_upload.setOnClickListener {
-
             contentUpload()
-            val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, photoUri)
-            bitmap_string=BitmapToString(bitmap)
         }
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -63,23 +53,13 @@ class AddPhotoActivity : AppCompatActivity() {
             if(resultCode == Activity.RESULT_OK){
                 // This is path to the seleted image
                 photoUri = data?.data
-
                 addphoto_image.setImageURI(photoUri)
             }else{
                 // Exit the addPhotoActivity if you leave the album without selecting it
                 finish()
             }
         }
-
     }
-
-    fun BitmapToString(bitmap: Bitmap): String? {
-        val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 70, baos)
-        val bytes: ByteArray = baos.toByteArray()
-        return Base64.encodeToString(bytes, Base64.DEFAULT)
-    }
-
     fun contentUpload(){
         // Make filename
         var timestamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
@@ -91,9 +71,10 @@ class AddPhotoActivity : AppCompatActivity() {
         storageRef?.putFile(photoUri!!)?.addOnSuccessListener { uri ->
             var contentDTO = ContentDTO()
 
+
             // Insert uid of user
             contentDTO.uid = auth?.currentUser?.uid
-            contentDTO.imageUrl=bitmap_string
+
             // Insert userId
             contentDTO.userId = auth?.currentUser?.email
             // Insert explain of content
@@ -101,27 +82,28 @@ class AddPhotoActivity : AppCompatActivity() {
             contentDTO.type=addphoto_cate.selectedItem.toString()
             // Insert timestamp
             contentDTO.timestamp = System.currentTimeMillis().toString()
+
             // Insert title
             contentDTO.title = addphoto_title.text.toString()
 
             // Insert location
             contentDTO.location = addphoto_location.text.toString()
-            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child(timestamp.toString()).child(
-                "imageUrl").setValue(contentDTO.imageUrl)
-            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child(timestamp.toString()).child(
-                "type"
-            ).setValue(contentDTO.type)
-            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child(timestamp.toString()).child(
-                "userId"
-            ).setValue(contentDTO.userId.toString())
-            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child(timestamp.toString()).child(
-                "explain"
-            ).setValue(contentDTO.explain)
-            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child(timestamp.toString()).child(
-                "title"
-            ).setValue(contentDTO.title)
+
+            val postid = timestamp.toString()
+
+            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child(timestamp.toString()).child("type").setValue(contentDTO.type)
+            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child(timestamp.toString()).child("userId").setValue(contentDTO.userId.toString())
+            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child(timestamp.toString()).child("explain").setValue(contentDTO.explain)
+            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child(timestamp.toString()).child("title").setValue(contentDTO.title)
+            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child(timestamp.toString()).child("imageUrl").setValue(contentDTO.imageUrl)
 
 
+            profile.profile_list.add(
+                User(contentDTO.title,contentDTO.type,contentDTO.explain,timestamp)
+            )
+            Card.card_list.add(
+                User(contentDTO.title,contentDTO.type,contentDTO.location,contentDTO.imageUrl)
+            )
 
                 }
 

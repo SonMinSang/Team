@@ -20,9 +20,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
         when (p0.itemId) {
             R.id.navi_home -> {
-            var detailViewFragment = DetailViewFragment()
+            var homeFragment = HomeFragment()
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, detailViewFragment).commit()
+                .replace(R.id.fragment_container, homeFragment).commit()
             return true
         }
 

@@ -1,6 +1,7 @@
 package com.example.team.Fragment.model
 
 data class ContentDTO(var explain: String? = null,
+                      var postId: String? =null,
                       var imageUrl: String? = null,
                       var uid: String? = null,
                       var userId: String? = null,

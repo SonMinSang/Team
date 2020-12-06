@@ -1,15 +1,11 @@
 package com.example.team
 
 import android.content.Intent
-import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.team.data.Post
-import com.example.team.data.profile
-import com.example.team.data.User
-import com.example.team.data.detail
+import com.example.team.data.*
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -19,10 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.*
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_login.*
-import java.io.File
 
 class LoginActivity : AppCompatActivity() {
     var auth: FirebaseAuth? = null
@@ -37,7 +30,6 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         email_login_button.setOnClickListener {
-            val geocoder = Geocoder(this)
 
             signinAndSignup()
             upload_list()
@@ -140,8 +132,7 @@ class LoginActivity : AppCompatActivity() {
 
         val db: FirebaseDatabase = FirebaseDatabase.getInstance()
         val myRef: DatabaseReference = db.getReference("uid")
-        detail.detail_list.clear()
-        profile.profile_list.clear()
+        val user = auth!!.currentUser
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
@@ -153,15 +144,14 @@ class LoginActivity : AppCompatActivity() {
                                 i.child("title").value.toString(),
                                 i.child("type").value.toString(),
                                 i.child("explain").value.toString(),
-                                i.key.toString(),
-                                i.child("imageUrl").value.toString()
+                                i.key.toString()
                             )
                         )
 
 
                     }
                     detail.detail_list = ArrayList(detail.detail_list.sortedBy { it.timestamp })
-
+                    Log.d("22",detail.detail_list.toString())
                     if (c.key.toString() == auth!!.currentUser!!.uid) {
                         for (i in c.children) {
                             profile.profile_list.add(
@@ -169,15 +159,24 @@ class LoginActivity : AppCompatActivity() {
                                     i.child("title").value.toString(),
                                     i.child("type").value.toString(),
                                     i.child("explain").value.toString(),
-                                    i.key.toString(),
-                                    i.child("imageUrl").value.toString()
+                                    i.key.toString()
+                                )
+                            )
+                            Card.card_list.add(
+                                User(
+                                    i.child("title").value.toString(),
+                                    i.child("type").value.toString(),
+                                    i.child("location").value.toString(),
+                                    i.child("imageUrl").value.toString(),
+                                    i.key.toString()
                                 )
                             )
 
 
 
-                            profile.profile_name=i.child("userId").value.toString()
+
                         }
+
 
                     }
 

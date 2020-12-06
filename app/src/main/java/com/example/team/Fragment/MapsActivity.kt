@@ -12,6 +12,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_add.*
 import kotlinx.android.synthetic.main.activity_add.addphoto_btn_upload
+import kotlinx.android.synthetic.main.card_layout.*
 import kotlinx.android.synthetic.main.fragment_map.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -26,13 +27,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         card_item_image.setOnClickListener {
-            R.layout.item_detail
+            R.layout.fragment_detail
         }
     }
 
     /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
+     * Manipulates the map once available.     * This callback is triggered when the map is ready to be used.
      * This is where we can add markers or lines, add listeners or move the camera. In this case,
      * we just add a marker near Sydney, Australia.
      * If Google Play services is not installed on the device, the user will be prompted to install

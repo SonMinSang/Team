@@ -4,18 +4,15 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.team.Fragment.model.ContentDTO
 import com.example.team.R
+import com.example.team.data.User
+import com.example.team.data.profile
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.activity_add.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -83,7 +80,7 @@ class AddPhotoActivity : AppCompatActivity() {
             contentDTO.explain = addphoto_edit_explain.text.toString()
             contentDTO.type=addphoto_cate.selectedItem.toString()
             // Insert timestamp
-            contentDTO.timestamp = System.currentTimeMillis()
+            contentDTO.timestamp = System.currentTimeMillis().toString()
 
             // Insert title
             contentDTO.title = addphoto_title.text.toString()
@@ -91,17 +88,32 @@ class AddPhotoActivity : AppCompatActivity() {
             // Insert location
             contentDTO.location = addphoto_location.text.toString()
 
-            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child("timestamp").child(timestamp.toString()).child("type").setValue(contentDTO.type)
-            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child("timestamp").child(timestamp.toString()).child("userId").setValue(contentDTO.userId.toString())
-            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child("timestamp").child(timestamp.toString()).child("explain").setValue(contentDTO.explain)
-            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child("timestamp").child(timestamp.toString()).child("title").setValue(contentDTO.title)
+            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child(timestamp.toString()).child("type").setValue(contentDTO.type)
+            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child(timestamp.toString()).child("userId").setValue(contentDTO.userId.toString())
+            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child(timestamp.toString()).child("explain").setValue(contentDTO.explain)
+            myRef.child("uid").child(auth?.currentUser?.uid.toString()).child(timestamp.toString()).child("title").setValue(contentDTO.title)
+
+
+
+            profile.profile_list.add(
+                User(contentDTO.title,contentDTO.type,contentDTO.explain,timestamp)
+            )
+
+                }
+
 
             setResult(Activity.RESULT_OK)
-
             finish()
         }
 
     }
-}
+
+
+
+
+
+
+
+
 
 

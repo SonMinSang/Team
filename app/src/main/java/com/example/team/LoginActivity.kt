@@ -145,7 +145,6 @@ class LoginActivity : AppCompatActivity() {
                                 i.child("title").value.toString(),
                                 i.child("type").value.toString(),
                                 i.child("explain").value.toString(),
-                                i.key.toString()
                                 i.key.toString(),
                                 i.child("imageUrl").value.toString(),
                                 i.child("latitude").value.toString(),
@@ -177,7 +176,7 @@ class LoginActivity : AppCompatActivity() {
                                 )
                             )
 
-                            )
+
 
                             profile.profile_name=i.child("userId").value.toString()
 

@@ -1,6 +1,7 @@
 package com.example.team
 
 import android.content.Intent
+import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -30,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         email_login_button.setOnClickListener {
-
+            val geocoder = Geocoder(this)
             signinAndSignup()
             upload_list()
 
@@ -145,6 +146,10 @@ class LoginActivity : AppCompatActivity() {
                                 i.child("type").value.toString(),
                                 i.child("explain").value.toString(),
                                 i.key.toString()
+                                i.key.toString(),
+                                i.child("imageUrl").value.toString(),
+                                i.child("latitude").value.toString(),
+                                i.child("longitude").value.toString()
                             )
                         )
 
@@ -172,6 +177,9 @@ class LoginActivity : AppCompatActivity() {
                                 )
                             )
 
+                            )
+
+                            profile.profile_name=i.child("userId").value.toString()
 
 
 

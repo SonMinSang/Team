@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.team.ProfileAdapter
 import com.example.team.R
+import com.example.team.data.Post
+import com.example.team.data.User
+import com.example.team.data.detail
 import com.example.team.data.profile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*

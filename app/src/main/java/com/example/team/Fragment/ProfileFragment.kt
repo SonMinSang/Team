@@ -19,9 +19,7 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 
 
 class ProfileFragment : Fragment() {
-    val db: FirebaseDatabase = FirebaseDatabase.getInstance()
-    val myRef: DatabaseReference = db.getReference("uid")
-    var auth: FirebaseAuth? = null
+
 
 
         override fun onCreateView(

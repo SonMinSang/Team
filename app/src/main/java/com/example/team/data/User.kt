@@ -7,4 +7,5 @@ data class User(
     val explain:String?=null,
     val timestamp:String?=null,
     val location: String?=null,
+    val imageUrl:String?=null
     )

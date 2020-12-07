@@ -6,6 +6,7 @@ data class Post(
     val type:String?=null,
     val explain:String?=null,
     val timestamp:String?=null,
+    val location:String?=null,
     val imageUrl:String?=null,
     val latitude:String?=null,
     val longitude:String?=null)
